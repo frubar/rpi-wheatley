@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block navbar-right %}
+<ul class="nav navbar-nav navbar-right">
+	<li><a href="{% url 'login' %}" class="navbar-link">
+		<i class="icon-off"></i> Log in</a>
+	</li>
+</ul>
+{% endblock %}
+
+{% block content %}
+<div class="row last-row">
+	<div class="col-lg-12">
+		<div class="page-header">
+			<h1><i class="icon-off"></i> Goodbye.
+				<small>Are they killing you? They're killing you, aren't they?</small>
+			</h1>
+		</div>
+	</div>
+</div>
+{% endblock %}
+
+<!-- vim: set ft=htmldjango ts=4 sw=4 : -->

@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block navbar-right %}
+<ul class="nav navbar-nav navbar-right">
+{% if user.is_authenticated %}
+	<li class="dropdown">
+		<a href="#" class="dropdown-toggle" data-toggle="dropdown">
+			{{ user.first_name }} {{ user.last_name }} <b class="caret"></b>
+		</a>
+		<ul class="dropdown-menu">
+			<li><a href="{% url 'tweet' %}"><i class="fa fa-twitter"></i> Tweet</a></li>
+			<li class="divider"></li>
+			<li><a href="{% url 'logout' %}"><i class="fa fa-off"></i> Log out</a>
+		</ul>
+	</li>
+{% else %}
+	<li><a href="{% url 'login' %}" class="navbar-link">
+		<i class="fa fa-off"></i> Log in</a>
+	</li>
+{% endif %}
+</ul>
+{% endblock %}
+
+{% block content %}
+<div class="row last-row">
+	<div class="col-lg-12">
+		<div class="page-header">
+			<h1> Wheatley.
+				<small>Intelligence Dampening Sphere, Model Raspberry Pi.</small>
+			</h1>
+		</div>
+		<div class="lead row">
+			<div class="col-lg-3 text-center">
+				<p>
+					<img src="{% static "img/wheatley.jpg" %}" alt="Wheatley" />
+				</p>
+			</div>
+			<div class="col-lg-6">
+				<a class="twitter-timeline" href="https://twitter.com/rpiwheatley"
+					data-widget-id="401992039216070656"
+					data-tweet-limit="1"
+					data-chrome="noheader transparent">
+					Tweets by @rpiwheatley
+				</a>
+				<script>
+					!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';
+					if(!d.getElementById(id)){js=d.createElement(s);
+					js.id=id;js.src=p+"://platform.twitter.com/widgets.js";
+					fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");
+				</script>
+			</div>
+		</div>
+	</div>
+</div>
+{% endblock %}
+
+<!-- vim: set ft=htmldjango ts=4 sw=4 : -->
