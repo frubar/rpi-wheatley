@@ -1,0 +1,103 @@
+html,
+body,
+.container {
+	height: 100%;
+}
+
+.table-header {
+	margin-bottom: 25px;
+}
+
+.last-row {
+	margin-bottom: 60px;
+}
+
+.form-alert {
+	margin-top: 10px;
+}
+
+.highlight {
+	padding: 9px 14px;
+	border: 1px solid #dddddd;
+	border-radius: 4px;
+	min-height: 200px;
+}
+
+.dropdown-menu > li > a:hover,
+.dropdown-menu > li > a:focus {
+	color: #ffffff;
+	text-decoration: none;
+	background-color: #222222;
+}
+
+.dropdown-menu > .active > a,
+.dropdown-menu > .active > a:hover,
+.dropdown-menu > .active > a:focus {
+	color: #ffffff;
+	text-decoration: none;
+	background-color: #222222;
+	outline: 0;
+}
+
+.dropdown-menu > .disabled > a,
+.dropdown-menu > .disabled > a:hover,
+.dropdown-menu > .disabled > a:focus {
+	color: #999999;
+}
+
+textarea {
+	resize: none;
+}
+
+#wrap {
+	min-height: 100%;
+	height: auto !important;
+	height: 100%;
+	margin: 0 auto -60px;
+	padding: 0 0 60px;
+}
+
+#content {
+	padding-top: 70px;
+}
+
+#footer {
+	height: 60px;
+	background-color: #222222;
+	color: #999999;
+}
+
+#footer li {
+	padding-top: 20px;
+	padding-bottom: 20px;
+}
+
+#footer a {
+	outline: 0;
+	text-decoration: none;
+	color: #999999;
+}
+
+#footer a:hover {
+	color: #ffffff;
+}
+
+.table-no-border thead > tr > th,
+.table-no-border tbody > tr > th,
+.table-no-border tfoot > tr > th,
+.table-no-border thead > tr > td,
+.table-no-border tbody > tr > td,
+.table-no-border tfoot > tr > td {
+	border: none !important;
+}
+
+@media (max-width: 767px) {
+	#footer {
+		margin-left: -20px;
+		margin-right: -20px;
+		padding-left: 20px;
+		padding-right: 20px;
+	}
+}
+
+/* vim: set ft=css ts=4 sw=4 : */
