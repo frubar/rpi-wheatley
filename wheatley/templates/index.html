@@ -1,56 +1,140 @@
 {% extends "base.html" %}
 {% load static %}
+{% load bootstrap %}
 
 {% block navbar-right %}
-<ul class="nav navbar-nav navbar-right">
-{% if user.is_authenticated %}
-	<li class="dropdown">
-		<a href="#" class="dropdown-toggle" data-toggle="dropdown">
-			{{ user.first_name }} {{ user.last_name }} <b class="caret"></b>
-		</a>
-		<ul class="dropdown-menu">
-			<li><a href="{% url 'tweet' %}"><i class="fa fa-twitter"></i> Tweet</a></li>
-			<li class="divider"></li>
-			<li><a href="{% url 'logout' %}"><i class="fa fa-off"></i> Log out</a>
-		</ul>
-	</li>
-{% else %}
-	<li><a href="{% url 'login' %}" class="navbar-link">
-		<i class="fa fa-off"></i> Log in</a>
-	</li>
-{% endif %}
-</ul>
 {% endblock %}
 
 {% block content %}
 <div class="row last-row">
 	<div class="col-lg-12">
-		<div class="page-header">
-			<h1> Wheatley.
-				<small>Intelligence Dampening Sphere, Model Raspberry Pi.</small>
-			</h1>
+		<div class="row hidden-sm hidden-xs">
+			<div class="col-lg-12">
+				<div class="page-header">
+					<h1><i class="fa fa-camera"></i> Wheatley.
+						<small>Intelligence Dampening Sphere, Model Raspberry Pi.</small>
+					</h1>
+				</div>
+			</div>
 		</div>
-		<div class="lead row">
-			<div class="col-lg-3 text-center">
-				<p>
-					<img src="{% static "img/wheatley.jpg" %}" alt="Wheatley" />
-				</p>
+		<div class="row">
+			<div class="col-lg-6">
+				{% if photo %}
+					<div class="thumbnail">
+						<img src="{{ photo }}"
+							width="545" height="341" alt="Preview" />
+					</div>
+				{% else %}
+					<div class="thumbnail">
+						<img data-src="{% static "js/holder.js/545x341/auto/text:Photo" %}"
+							width="545" height="4341" alt="Preview" />
+					</div>
+					{% endif %}
 			</div>
 			<div class="col-lg-6">
-				<a class="twitter-timeline" href="https://twitter.com/rpiwheatley"
-					data-widget-id="401992039216070656"
-					data-tweet-limit="1"
-					data-chrome="noheader transparent">
-					Tweets by @rpiwheatley
-				</a>
-				<script>
-					!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';
-					if(!d.getElementById(id)){js=d.createElement(s);
-					js.id=id;js.src=p+"://platform.twitter.com/widgets.js";
-					fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");
-				</script>
+				<form action="{% url 'index' %}" class="form-horizontal" method="post"
+					id="photo" role="form">
+					{% csrf_token %}
+					<fieldset
+					{% if not control %}
+						disabled
+					{% endif %}>
+						<div class="row">
+							<div class="col-lg-6">
+								{{ forms.photo.size|bootstrap_horizontal:"col-lg-4" }}
+							</div>
+							<div class="col-lg-6">
+								{{ forms.photo.quality|bootstrap_horizontal:"col-lg-4" }}
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-lg-6">
+								{{ forms.photo.imxfx|bootstrap_horizontal:"col-lg-4" }}
+							</div>
+							<div class="col-lg-6">
+								{{ forms.photo.metering|bootstrap_horizontal:"col-lg-4" }}
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-lg-6">
+								{{ forms.photo.exposure|bootstrap_horizontal:"col-lg-4" }}
+							</div>
+							<div class="col-lg-6">
+								{{ forms.photo.awb|bootstrap_horizontal:"col-lg-4" }}
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-lg-6">
+								{{ forms.photo.sharpness|bootstrap_horizontal:"col-lg-4" }}
+							</div>
+							<div class="col-lg-6">
+								{{ forms.photo.contrast|bootstrap_horizontal:"col-lg-4" }}
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-lg-6">
+								{{ forms.photo.brightness|bootstrap_horizontal:"col-lg-4" }}
+							</div>
+							<div class="col-lg-6">
+								{{ forms.photo.saturation|bootstrap_horizontal:"col-lg-4" }}
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-lg-offset-1 col-lg-1">
+								<div class="form-group">
+									<button class="btn btn-primary btn-sm"
+									name="shot" value="1" type="submit" title="Shot">
+									Shot
+									</button>
+								</div>
+							</div>
+							<div class="col-lg-2">
+								{{ forms.photo.vflip|bootstrap_horizontal }}
+							</div>
+							<div class="col-lg-2">
+								{{ forms.photo.hflip|bootstrap_horizontal }}
+							</div>
+								<div class="col-lg-6">
+								{{ forms.photo.rotation|bootstrap_horizontal:"col-lg-4" }}
+							</div>
+						</div>
+					</fieldset>
+				</form>
 			</div>
 		</div>
+		<div class="row">
+			<div class="col-lg-6">
+				<form action="{% url 'index' %}" method="post" id="tweet" role="form">
+					{% csrf_token %}
+					<fieldset
+					{% if not control %}
+						disabled
+					{% endif %}>
+						{{ forms.tweet.status|bootstrap }}
+						<input type="hidden" name="hashtag" value="#linuxdayAT">
+						<div class="form-group">
+							<button class="btn btn-primary btn-sm"
+								name="tweet" value="1" type="submit" title="Tweet">
+								Tweet
+							</button>
+						</div>
+					</fieldset>
+				</form>
+			</div>
+			<div class="col-lg-6"></div>
+		</div>
+	{% if url %}
+		<div class="row">
+			<div class="col-lg-12">
+				<div class="alert alert-success form-alert alert-dismissable
+					text-center">
+					<button type="button" class="close" data-dismiss="alert"
+						aria-hidden="true">&times;</button>
+					<a href="{{ url }}" class="alert-link">Follow your tweet!</a>
+				</div>
+			</div>
+		</div>
+	{% endif %}
 	</div>
 </div>
 {% endblock %}
